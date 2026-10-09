@@ -6,7 +6,7 @@ Standalone frontend UI/UX prototype for the Apply Varsity education consultancy 
 
 ## Purpose
 
-Establish a scalable engineering foundation for future role-specific dashboard experiences. This repository currently contains route placeholders only, with no backend or authentication.
+Establish a scalable engineering and visual foundation for future role-specific dashboard experiences. This repository contains a design-foundation preview and minimal role placeholders, with no backend or authentication.
 
 ## Planned User Panels
 
@@ -16,7 +16,7 @@ Establish a scalable engineering foundation for future role-specific dashboard e
 
 ## Technology Stack
 
-React, Vite, JavaScript, Tailwind CSS, React Router, Lucide React, and Recharts. ESLint checks JavaScript and React code. Lucide and Recharts are installed for future sprints and are not yet used in the UI.
+React, Vite, JavaScript, Tailwind CSS, React Router, Lucide React, and Recharts. ESLint checks JavaScript and React code. Core primitives use named Lucide icons; Recharts remains installed for later work and is not imported by the UI.
 
 Tailwind uses the official `@tailwindcss/vite` plugin and the CSS import in `src/styles/globals.css`; no legacy PostCSS or Tailwind configuration is needed.
 
@@ -29,7 +29,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Directly visit `/`, `/admin`, `/counsellor`, or `/student` to inspect the placeholders. Unknown routes show a minimal not-found page.
+Open the local URL printed by Vite. Visit `/` for the Design Foundation preview; `/admin`, `/counsellor`, and `/student` remain minimal placeholders. Unknown routes show a minimal not-found page.
 
 ## Available Commands
 
@@ -63,6 +63,7 @@ src/
     counsellor/CounsellorPage.jsx
     student/StudentPage.jsx
   styles/globals.css       # Tailwind entry
+  styles/tokens.css        # Shared visual foundation
   utils/
   App.jsx                  # Application composition
   main.jsx                 # React mount and global stylesheet
@@ -76,11 +77,17 @@ Empty future directories contain only `.gitkeep` files. Add shared components, l
 
 **Sprint 0.2:** Product context/documentation established.
 
-**Next:** Sprint 1 — Design System & UI Primitives (not started).
+**Sprint 0:** Complete — foundation and product context.
 
-**Current implementation:** Engineering foundation only.
+**Sprint 1.1:** Complete — Design Tokens & Visual Foundation, reviewed and approved.
 
-Admin, Counsellor and Student dashboard UI implementation has NOT started. The role routes are plain engineering placeholders, not dashboard designs. No API integration, authentication, business features, datasets, or theme system exists yet.
+**Sprint 1.2:** Core UI Primitives implemented; awaiting review.
+
+**Next:** Sprint 1.3 — Data Display & Navigation Primitives (not started). Sprint 1 overall is not yet complete.
+
+**Current implementation:** Engineering foundation, light-mode design tokens, 13 reusable core primitives and a combined visual/interactive preview on `/`.
+
+Admin, Counsellor and Student dashboard UI implementation has NOT started. The role routes remain plain engineering placeholders. No API integration, authentication, business features, CRM datasets, dashboard shell or dark mode exists yet.
 
 ## Development Roadmap
 
@@ -100,6 +107,7 @@ The supplied product context describes the wider Apply Varsity ecosystem; planne
 - [Role Experiences](docs/ROLE_EXPERIENCES.md) — distinct Admin, Counsellor and Student priorities.
 - [Admin Dashboard Requirements](docs/ADMIN_DASHBOARD_REQUIREMENTS.md) — management questions, information hierarchy and operational states.
 - [UX Design Principles](docs/UX_DESIGN_PRINCIPLES.md) — brand direction, accessibility, responsive behavior and prototype data rules.
+- [Design System](docs/DESIGN_SYSTEM.md) — implemented tokens, typography, sizing, focus and responsive conventions.
 - [Implementation Roadmap](docs/IMPLEMENTATION_ROADMAP.md) — scoped sprint and phase checkpoints.
 - [Terminology](docs/TERMINOLOGY.md) — domain vocabulary and legacy-to-target UI mapping.
 - [Codex Working Rules](docs/CODEX_WORKING_RULES.md) — implementation, validation and Git constraints.

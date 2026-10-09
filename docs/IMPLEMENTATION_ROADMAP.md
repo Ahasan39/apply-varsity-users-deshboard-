@@ -11,10 +11,12 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Sprint 1 — Design System & UI Primitives
 
+**Sub-sprint status:** Sprint 1.1 — Design Tokens & Visual Foundation is complete and approved. Sprint 1.2 — Core UI Primitives is implemented and verified, awaiting review. See [Design System](DESIGN_SYSTEM.md). Next is Sprint 1.3 — Data Display & Navigation Primitives; the overall Sprint 1 checkpoint is not complete.
+
 - **Objective:** translate the approved light-mode direction into reusable, accessible foundations.
 - **Major deliverables:** agreed color/type/spacing and other required design tokens; scoped primitives such as buttons, badges, cards, inputs, empty/loading states and table containers, guided by actual needs.
 - **Non-goals:** full dashboard shell, Admin business sections, dark mode, authentication or a speculative component library covering every future case.
-- **Expected checkpoint:** approved primitive coverage and state previews, consistent semantic colors, keyboard/contrast review and responsive checks; lint/build pass. Not started during Sprint 0.2.
+- **Expected checkpoint:** approved primitive coverage and state previews, consistent semantic colors, keyboard/contrast review and responsive checks; lint/build pass. Sprint 1.1 covers tokens and Sprint 1.2 adds the core primitive set; later sub-sprint work remains.
 
 ## Sprint 2 — Shared Dashboard Shell
 
@@ -102,4 +104,4 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Current stop boundary
 
-Sprint 0.2 ends after documentation and required validation. **Next: Sprint 1 — Design System & UI Primitives**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push, create a PR or start the next sprint under the Sprint 0.2 task.
+Sprint 1.2 ends after core primitives, the combined preview, mobile-through-4K responsive checks, accessibility/performance review, documentation and required validation. **Next: Sprint 1.3 — Data Display & Navigation Primitives**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 1.3 under the Sprint 1.2 task. Approved Sprint 1.1 work remains preserved and uncommitted with Sprint 1.2.
