@@ -81,11 +81,13 @@ Empty future directories contain only `.gitkeep` files. Add shared components, l
 
 **Sprint 1.1:** Complete — Design Tokens & Visual Foundation, reviewed and approved.
 
-**Sprint 1.2:** Core UI Primitives implemented; awaiting review.
+**Sprint 1.2:** Complete — Core UI Primitives, reviewed and approved in baseline `5550289`.
 
-**Next:** Sprint 1.3 — Data Display & Navigation Primitives (not started). Sprint 1 overall is not yet complete.
+**Sprint 1.3:** Data Display & Navigation Primitives implemented; awaiting review.
 
-**Current implementation:** Engineering foundation, light-mode design tokens, 13 reusable core primitives and a combined visual/interactive preview on `/`.
+**Next:** Sprint 2.1 — Shared Dashboard Shell Foundation. Sprint 2 has not started.
+
+**Current implementation:** Engineering foundation, light-mode design tokens, 13 core primitives, 11 data-display/navigation primitive families and a combined visual/interactive preview on `/`. Section 07 demonstrates semantic tables, mobile list alternatives and local navigation/action specimens using six explicitly fictional records.
 
 Admin, Counsellor and Student dashboard UI implementation has NOT started. The role routes remain plain engineering placeholders. No API integration, authentication, business features, CRM datasets, dashboard shell or dark mode exists yet.
 

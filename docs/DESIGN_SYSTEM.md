@@ -262,3 +262,80 @@ All widths **360, 375, 390, 430, 480, 768, 1024, 1280, 1440, 1920, 2560 and 3840
 Keyboard traversal reached all 27 enabled preview controls with visible 2px focus and skipped native disabled/loading controls. Tested Button activation and safe form default, IconButton Enter/reset, text entry, controlled search, native Select arrows, Checkbox Space and mixed-state transition, Card link activation, and EmptyState action/ref focus. Error/helper/external descriptions were checked, including Select invalid state. Avatar image failure/source recovery retained dimensions. Loading Button width stayed stable and duplicate activation was blocked. Skeleton caller dimensions and reduced-motion animation suppression passed. All four application routes passed smoke checks with no console/page errors; role placeholders remain unchanged.
 
 Temporary browser checks use the already available browser tooling outside the repository; no test framework/dependency or QA fixtures are shipped. These focused checks do not claim exhaustive screen-reader or Lighthouse certification. See the sprint report for measured Vite bundle sizes.
+
+## Sprint 1.3 — Data display and navigation
+
+These additions extend the approved tokens and core controls without introducing dependencies or new tokens. Import public components from `src/components/ui`. The root preview adds section **07 / Data display & navigation primitives**, with six fictional records in `src/data/foundationRecords.js`. None of the specimens performs business operations.
+
+### Table composition and states
+
+`TableContainer` provides a named, keyboard-focusable horizontal scrolling region; supply its `label`. `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell` and `TableCaption` retain native table elements. `TableHead` defaults to `scope="col"`; use `scope="row"` for record headings. DOM props and caller classes pass through these parts. A container is optional when overflow handling is unnecessary.
+
+```jsx
+<TableContainer label="Sample record comparison">
+  <Table density="compact" className="min-w-[48rem]">
+    <TableCaption>Fictional records for design review</TableCaption>
+    <TableHeader><TableRow><TableHead>Name</TableHead><TableHead className="text-right">Count</TableHead></TableRow></TableHeader>
+    <TableBody><TableRow state="attention">
+      <TableHead scope="row">Sample record · Needs attention</TableHead>
+      <TableCell className="text-right tabular-nums">12</TableCell>
+    </TableRow></TableBody>
+  </Table>
+</TableContainer>
+```
+
+Density is `normal` (12px vertical cell padding) or `compact` (8px). `TableRow` accepts `default`, `selected`, `muted` or `attention`, plus optional default-row `hover`. `TableCell muted` uses secondary text. Caller classes control alignment and widths. Row states are presentation, never domain mappings or automatic selection. Add visible text/status, and caller-provided selection semantics when appropriate; do not depend on color. Rows are not clickable by default.
+
+Actions are ordinary controls in cells. Compose an empty state inside a `TableCell colSpan={columnCount}`; compose existing Skeletons in normal rows for loading, with one parent loading status and `aria-busy` where appropriate. Table does not own sorting, filters, paging, fetching or selection logic.
+
+### Three responsive data strategies
+
+1. **Controlled horizontal scroll:** preserve comparison columns and set a caller-owned minimum table width. The named TableContainer contains overflow, accepts keyboard focus and allows native arrow scrolling; Tab leaves naturally. Supply a visible scrolling instruction when useful. The page must not scroll sideways.
+2. **Priority columns:** apply the same responsive display classes to each secondary column's header and cells. The preview hides Branch/Owner below `lg` in its compact table. The table knows nothing about business priority. Never hide information essential to the current task without an alternative.
+3. **CompactList alternative:** explicitly compose a `ul` with `CompactListItem` children for task-focused mobile records. Items accept `primary`, `secondary`, `leading`, `trailing` and `metadata` React content. They wrap naturally without fixed heights, and reserve readable primary width before wrapping trailing actions. Put an ordinary link in primary content and a separate button in trailing content; never wrap nested controls in another control.
+
+The preview's alternative specimen uses `md:hidden` for the list and `hidden md:block` for the table, representing the same six records. Only one is displayed and exposed to accessibility APIs at a time. The separate comparison-table specimen remains visible to demonstrate strategy A. Breakpoint switching uses CSS only. Choose a representation for the task, not simply for visual consistency with desktop.
+
+At Full HD, QHD and 4K, let containers use the workspace but distribute columns intentionally. Give text columns useful room, constrain narrow metadata columns and protect scan length; do not stretch every table to 3000px. The preview places tables beside each other from `xl`, uses a separate auto-fit grid with a 24rem basis for other specimens, and locally caps this section at 160rem. This is not a universal dashboard max-width. Type and control sizes stay stable as the workspace grows.
+
+### Result context and separation
+
+`DataSummary` accepts `from`, `to`, `total`, `label` (default `records`) and paragraph DOM props. With both bounds it renders “Showing 21–40 of 131 records”; otherwise it renders a count. It clamps ranges to the nonnegative total, including the final partial page. Callers can add `aria-live="polite"` when the context changes.
+
+`Pagination` is controlled by `page`, `totalPages` and `onPageChange`. It supplies a named navigation region, previous/next boundary disabling, `aria-current="page"`, native buttons and optional `disabled`. `siblingCount` defaults to 1 and is bounded to 0–2 so even huge totals create at most seven numeric buttons, with ellipses. Total zero disables both directions. Mobile shows current/total text instead of numeric neighbors; previous/next retain touch sizing. Desktop rows may wrap within narrow cards. It reuses Button and does not fetch or slice data. In the preview its 131-result summary is explicitly independent of the six-row table.
+
+`Separator` uses the existing border token and `role="separator"`, with horizontal default or `orientation="vertical"`. A caller provides meaningful vertical height through layout/classes.
+
+### Navigation semantics and APIs
+
+| Component | Contract |
+| --- | --- |
+| Breadcrumbs | Named `nav` and ordered list; items accept `label`, `href`, optional `id`, or a caller-supplied `link` element for router integration. Last item is current-page text. Labels wrap, and separators are decorative. Style/name custom links accessibly; no routing logic lives here. |
+| Tabs | Controlled **in-page, automatic-activation** widget: `items`, `value`, `onValueChange`, `label`. Each item has unique `value`, `label`, `content`, optional `disabled` and `count`. Linked tab/panel IDs, roving tabIndex, Left/Right wrapping, Home/End and disabled skipping. Tab moves to the active focusable panel. Panels stay mounted but inactive ones are hidden. Horizontal scrolling preserves labels. Content should be immediate; this is not navigation or asynchronous panel loading. |
+| NavItem | Caller-controlled `as` (anchor default), destination props, `icon`, `label`, `active`, `badge`, `trailing`, `disabled`, `collapsed`. Active navigation has a border and `aria-current`. Disabled renders a nonfocusable named link-role span and discards activation/destination props. Collapsed items need an icon and retain sr-only label. Use only navigation elements via `as`, not action buttons. |
+| NavGroup | Static named group with optional `label` and children. No accordion, route configuration, authorization or sidebar behavior. |
+
+Tabs follow the [WAI-ARIA tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). Keep `value` synchronized in the change callback and provide unique item values. An invalid value falls back to the first enabled item; empty/all-disabled sets expose no active panel. Breadcrumbs/NavItem are navigation; Tabs is in-page state. These roles are not interchangeable.
+
+### Dropdown and tooltip scope
+
+`DropdownMenu` is an **action disclosure**, following [disclosure semantics](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), not an ARIA menu widget. Its trigger render function receives a ref, button type, expanded/controls attributes and click handler; spread these onto Button/IconButton. `items` have unique `id`, `label`, optional `disabled`, `destructive`, `onSelect`, or `separator`. `label` names the open action group. Native action buttons use normal Tab/Shift+Tab; no menuitem roles or invented arrow-key model. Opening focuses the first enabled action; Escape/action activation closes and restores trigger focus. Leaving the group by Tab or pointer closes without stealing the new focus. Callbacks run once on activation.
+
+Positioning is local absolute CSS with `align="start" | "end"` and `placement="top" | "bottom"`. There are no portals, collision detection, nested menus, custom interactive children or positioning measurements. A scroll container clips positioned descendants: choose placement with enough room, or compose actions outside the scroll region. The preview puts a dropdown only in the first table row, where its panel fits within the region; other row cells intentionally have no sample action. A document pointer listener exists only while a disclosure is open and is removed on close/unmount.
+
+`Tooltip` accepts supplementary `content`, a child render function, top/bottom `placement`, and start/end `align`. Spread the supplied `aria-describedby` onto an independently named control. It appears on mouse/pen hover or keyboard focus, remains visible while the pointer is over the content, and dismisses on Escape even if hover began while focus was elsewhere. Touch does not require hover. A document Escape listener exists only while open and is cleaned up. The [tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/) provides descriptive semantics; do not put actions or essential instructions in a tooltip. There is no animation, timer, portal, measurement or collision engine. Callers choose placement that fits visible space and avoid clipping ancestors.
+
+### Accessibility rules and anti-patterns
+
+- Preserve table headers/captions, native list/navigation semantics and independent action focus. Keep focus rings and readable text; active/attention/status meaning needs more than color.
+- Do not squeeze desktop tables into mobile or replace semantic tables with div grids without a semantic reason.
+- Do not use tooltips as accessible names, or remove the name of an icon-only control.
+- Do not introduce giant generic DataTable engines, sorting/virtualization or business-specific columns before real requirements exist.
+- Do not impose a universal narrow dashboard max-width or use JavaScript viewport detection/resize listeners for CSS layout problems.
+- Do not call native action disclosures ARIA menus without implementing the corresponding menu keyboard model.
+
+### Sprint 1.3 verification record
+
+Chromium browser checks passed at **360, 375, 390, 430, 480, 768, 1024, 1280, 1440, 1920, 2560 and 3840px**: no page overflow; contained comparison-table scrolling; readable mobile lists; fitting pagination, breadcrumb, navigation, dropdown and tooltip specimens; focus outlines and mobile action sizing. Mobile, desktop and 4K captures were visually reviewed. Keyboard checks covered scroll-region exit, table/list actions, pagination boundaries/current state, tab wrapping/Home/End/disabled skipping/panel traversal, disclosure Tab/Escape/outside dismissal/focus restoration and tooltip focus/hover/Escape relationships. All four routes loaded without console or page errors; role placeholders were preserved.
+
+This is focused browser/semantic QA, not a screen-reader audit or Lighthouse certification. No test dependencies or fixtures were added to the project. New listeners are interaction-scoped; ordinary layout remains CSS-driven. The sprint adds no Recharts imports, remote assets, datasets beyond six records, new tokens or dependencies. See the sprint report for final production bundle sizes and deltas.

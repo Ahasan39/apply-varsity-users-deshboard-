@@ -1,4 +1,5 @@
 import PrimitivePreview from './PrimitivePreview'
+import DataDisplayPreview from './DataDisplayPreview'
 
 // Local visual specimens, not business data or reusable production components.
 const brandSamples = [
@@ -47,7 +48,7 @@ export default function FoundationPage() {
       <header className="mb-8 border-b border-border pb-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <p className="text-section text-brand-navy">Apply Varsity<span className="text-brand-red">.</span></p>
-          <p className="text-label text-text-secondary">Sprints 1.1 + 1.2</p>
+          <p className="text-label text-text-secondary">Sprints 1.1–1.3</p>
         </div>
         <h1 className="text-page text-brand-navy">Design Foundation</h1>
         <p className="mt-2 max-w-prose text-body-sm text-text-secondary">
@@ -137,6 +138,7 @@ export default function FoundationPage() {
       </div>
       </div>
       <PrimitivePreview />
+      <DataDisplayPreview />
       <footer className="mx-auto mt-8 max-w-[160rem] border-t border-border pt-4 text-body-sm text-text-secondary">
         Foundation and primitive specimens only. No live data or dashboard workflows.
       </footer>

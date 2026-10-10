@@ -11,12 +11,12 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Sprint 1 — Design System & UI Primitives
 
-**Sub-sprint status:** Sprint 1.1 — Design Tokens & Visual Foundation is complete and approved. Sprint 1.2 — Core UI Primitives is implemented and verified, awaiting review. See [Design System](DESIGN_SYSTEM.md). Next is Sprint 1.3 — Data Display & Navigation Primitives; the overall Sprint 1 checkpoint is not complete.
+**Sub-sprint status:** Sprint 1.1 — Design Tokens & Visual Foundation and Sprint 1.2 — Core UI Primitives are complete and approved in baseline `5550289`. Sprint 1.3 — Data Display & Navigation Primitives is implemented; awaiting review. It adds semantic table composition, three responsive data strategies, summaries/pagination, compact lists, separators and navigation/action/help primitives. See [Design System](DESIGN_SYSTEM.md). Next is Sprint 2.1 — Shared Dashboard Shell Foundation. Sprint 2 has not started.
 
 - **Objective:** translate the approved light-mode direction into reusable, accessible foundations.
 - **Major deliverables:** agreed color/type/spacing and other required design tokens; scoped primitives such as buttons, badges, cards, inputs, empty/loading states and table containers, guided by actual needs.
 - **Non-goals:** full dashboard shell, Admin business sections, dark mode, authentication or a speculative component library covering every future case.
-- **Expected checkpoint:** approved primitive coverage and state previews, consistent semantic colors, keyboard/contrast review and responsive checks; lint/build pass. Sprint 1.1 covers tokens and Sprint 1.2 adds the core primitive set; later sub-sprint work remains.
+- **Expected checkpoint:** approved primitive coverage and state previews, consistent semantic colors, keyboard/contrast review and responsive checks; lint/build pass. Sprint 1.1 covers tokens, Sprint 1.2 the core set and Sprint 1.3 data/navigation primitives; Sprint 1.3 review remains pending.
 
 ## Sprint 2 — Shared Dashboard Shell
 
@@ -104,4 +104,4 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Current stop boundary
 
-Sprint 1.2 ends after core primitives, the combined preview, mobile-through-4K responsive checks, accessibility/performance review, documentation and required validation. **Next: Sprint 1.3 — Data Display & Navigation Primitives**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 1.3 under the Sprint 1.2 task. Approved Sprint 1.1 work remains preserved and uncommitted with Sprint 1.2.
+Sprint 1.3 ends after data/navigation primitives, the extended Foundation Preview, mobile-through-4K checks, accessibility/performance review, documentation and required validation. **Next: Sprint 2.1 — Shared Dashboard Shell Foundation**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 2.1 under this task. Approved baseline `5550289` is preserved; Sprint 1.3 changes remain uncommitted for review.
