@@ -6,7 +6,7 @@ Standalone frontend UI/UX prototype for the Apply Varsity education consultancy 
 
 ## Purpose
 
-Establish a scalable engineering and visual foundation for future role-specific dashboard experiences. This repository contains a design-foundation preview and minimal role placeholders, with no backend or authentication.
+Establish a scalable engineering and visual foundation for future role-specific dashboard experiences. This repository contains a design-foundation preview and a shared dashboard shell with role-specific navigation specimens, with no backend or authentication.
 
 ## Planned User Panels
 
@@ -29,7 +29,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Visit `/` for the Design Foundation preview; `/admin`, `/counsellor`, and `/student` remain minimal placeholders. Unknown routes show a minimal not-found page.
+Open the local URL printed by Vite. Visit `/` for the preserved Design Foundation preview. `/admin`, `/counsellor`, and `/student` use the same dashboard shell with their own navigation configuration and neutral layout specimens. Unknown routes show a minimal not-found page.
 
 ## Available Commands
 
@@ -53,6 +53,7 @@ src/
     ui/
     layout/
     dashboard/
+  config/dashboardNavigation.js # Role-specific navigation presentation
   data/
   hooks/
   layouts/
@@ -83,13 +84,17 @@ Empty future directories contain only `.gitkeep` files. Add shared components, l
 
 **Sprint 1.2:** Complete — Core UI Primitives, reviewed and approved in baseline `5550289`.
 
-**Sprint 1.3:** Data Display & Navigation Primitives implemented; awaiting review.
+**Sprint 1.3:** Complete — Data Display & Navigation Primitives, reviewed and approved in baseline `32716ab`. Sprint 1 is complete.
 
-**Next:** Sprint 2.1 — Shared Dashboard Shell Foundation. Sprint 2 has not started.
+**Sprint 2.1:** Shared Dashboard Shell Foundation implemented; awaiting review.
+
+**Next:** Sprint 2.2 — Admin Dashboard Overview. Sprint 2.2 has not started.
 
 **Current implementation:** Engineering foundation, light-mode design tokens, 13 core primitives, 11 data-display/navigation primitive families and a combined visual/interactive preview on `/`. Section 07 demonstrates semantic tables, mobile list alternatives and local navigation/action specimens using six explicitly fictional records.
 
-Admin, Counsellor and Student dashboard UI implementation has NOT started. The role routes remain plain engineering placeholders. No API integration, authentication, business features, CRM datasets, dashboard shell or dark mode exists yet.
+The role routes now share a fluid application shell: a 264px desktop sidebar (80px collapsed), sticky topbar and a modal navigation drawer below 1024px. Collapse state is local and not persisted. Dashboard links and the Foundation link work; future modules are disabled. Search/notification controls are explicitly unavailable specimens, and profiles/counts are fictional.
+
+Real Admin, Counsellor and Student dashboard content has NOT started. No API integration, authentication, business features, CRM integration, charts or dark mode exists. Navigation configuration is presentation, not authorization. See the [Design System](docs/DESIGN_SYSTEM.md#sprint-21--shared-dashboard-shell) for shell composition and validation scope.
 
 ## Development Roadmap
 

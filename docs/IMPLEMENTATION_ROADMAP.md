@@ -11,14 +11,18 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Sprint 1 — Design System & UI Primitives
 
-**Sub-sprint status:** Sprint 1.1 — Design Tokens & Visual Foundation and Sprint 1.2 — Core UI Primitives are complete and approved in baseline `5550289`. Sprint 1.3 — Data Display & Navigation Primitives is implemented; awaiting review. It adds semantic table composition, three responsive data strategies, summaries/pagination, compact lists, separators and navigation/action/help primitives. See [Design System](DESIGN_SYSTEM.md). Next is Sprint 2.1 — Shared Dashboard Shell Foundation. Sprint 2 has not started.
+**Sub-sprint status:** Sprints 1.1, 1.2 and 1.3 are complete and approved in baseline `32716ab`. Coverage includes tokens, core primitives, semantic table composition, three responsive data strategies and navigation/action/help primitives. See [Design System](DESIGN_SYSTEM.md).
 
 - **Objective:** translate the approved light-mode direction into reusable, accessible foundations.
 - **Major deliverables:** agreed color/type/spacing and other required design tokens; scoped primitives such as buttons, badges, cards, inputs, empty/loading states and table containers, guided by actual needs.
 - **Non-goals:** full dashboard shell, Admin business sections, dark mode, authentication or a speculative component library covering every future case.
-- **Expected checkpoint:** approved primitive coverage and state previews, consistent semantic colors, keyboard/contrast review and responsive checks; lint/build pass. Sprint 1.1 covers tokens, Sprint 1.2 the core set and Sprint 1.3 data/navigation primitives; Sprint 1.3 review remains pending.
+- **Expected checkpoint:** approved primitive coverage and state previews, consistent semantic colors, keyboard/contrast review and responsive checks; lint/build pass. Sprint 1.1 covers tokens, Sprint 1.2 the core set and Sprint 1.3 data/navigation primitives. Complete.
 
 ## Sprint 2 — Shared Dashboard Shell
+
+**Sprint 2.1 — Shared Dashboard Shell Foundation:** implemented; awaiting review. All three role routes reuse one shell with a collapsible desktop sidebar, modal mobile/tablet navigation, sticky topbar, fluid workspace and page header. Neutral specimens demonstrate layout only; real dashboard modules remain unimplemented.
+
+**Next: Sprint 2.2 — Admin Dashboard Overview** (not started). This detailed next checkpoint takes precedence over the earlier broad Sprint 3 overview milestone below; that broader scope will be reconciled with the next explicit sprint request.
 
 - **Objective:** provide reusable navigation and page composition for later dashboards.
 - **Major deliverables:** DashboardLayout, sidebar/mobile drawer, topbar and page container; planned Admin navigation mapped without claiming unfinished modules work.
@@ -104,4 +108,4 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Current stop boundary
 
-Sprint 1.3 ends after data/navigation primitives, the extended Foundation Preview, mobile-through-4K checks, accessibility/performance review, documentation and required validation. **Next: Sprint 2.1 — Shared Dashboard Shell Foundation**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 2.1 under this task. Approved baseline `5550289` is preserved; Sprint 1.3 changes remain uncommitted for review.
+Sprint 2.1 ends after shell reuse across all roles, responsive/mobile-through-4K checks, keyboard and drawer lifecycle verification, performance review, documentation and required validation. **Next: Sprint 2.2 — Admin Dashboard Overview**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 2.2 under this task. Approved baseline `32716ab` is preserved; Sprint 2.1 changes remain uncommitted for review.

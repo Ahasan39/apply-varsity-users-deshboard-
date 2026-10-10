@@ -2,7 +2,7 @@
 
 ## Status and interpretation
 
-This is a **Target UI** information architecture baseline, not an immutable backend schema or evidence of completed modules. Known capabilities are supplied product context from [Product Context](PRODUCT_CONTEXT.md). This repository currently implements placeholder routes only; no module routes are added in Sprint 0.2.
+This is a **Target UI** information architecture baseline, not an immutable backend schema or evidence of completed modules. Known capabilities are supplied product context from [Product Context](PRODUCT_CONTEXT.md). Sprint 2.1 implements the shared shell on the three existing role routes; module routes and real dashboard content remain unimplemented.
 
 ## Domain map
 
@@ -94,3 +94,11 @@ Do not delete capabilities simply because the target baseline uses fewer labels.
 Potential later primitives: Button, IconButton, Card, Badge, StatusBadge, Avatar, SearchInput, Select, Dropdown, Tooltip, SectionHeader, EmptyState, Skeleton and TableContainer. Potential shared layout concepts: DashboardLayout, Sidebar, MobileSidebar, Topbar and PageContainer. These are future components, not Sprint 0.2 additions.
 
 Introduce `config/`, `services/` or `features/` only when demonstrated complexity justifies them. Do not prebuild state management, backend adapters or authentication. Preserve simple data/presentation boundaries for eventual integration; [Working Rules](CODEX_WORKING_RULES.md) govern implementation scope.
+
+## Implemented shared shell — Sprint 2.1
+
+`DashboardLayout` supplies role configuration and fictional profile defaults to one `DashboardShell`. Admin, Counsellor and Student page components provide their own title/description and neutral ShellPreview content. The shell owns Sidebar, Topbar, MobileNavigation, PageHeader and a fluid semantic main workspace. It does not import role-specific business components. The root Foundation Preview remains outside this shell.
+
+`src/config/dashboardNavigation.js` owns lightweight groups/items, named icon references, destinations, optional badges and disabled states. Admin preserves the supplied existing navigation vocabulary (including Client, Task, Team, Scholarships and Agreements). Counsellor uses documented daily-work concepts; Student uses journey concepts. Future items have no destinations and render unavailable; only Dashboard and the separate Foundation link navigate. This neither deletes legacy capabilities nor invents permissions or dozens of module routes.
+
+`src/data/shellUsers.js` contains three fictional identities. Future integration can supply user/navigation inputs explicitly; no account fetching or authorization is implied by a role prop. `src/styles/shell.css` holds shell-specific geometry while sizing/layer values live in the existing token source. See [Design System](DESIGN_SYSTEM.md#sprint-21--shared-dashboard-shell) for responsive and accessibility behavior.

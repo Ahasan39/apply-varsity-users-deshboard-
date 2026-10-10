@@ -91,6 +91,13 @@
   --motion-fast: 120ms;
   --motion-standard: 180ms;
   --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+  --shell-sidebar-expanded: 16.5rem;
+  --shell-sidebar-collapsed: 5rem;
+  --shell-drawer-width: min(86vw, 20rem);
+  --shell-topbar-height: 4.5rem;
+  --shell-gutter: clamp(1rem, 2vw, 3rem);
+  --layer-shell-chrome: 20;
+  --layer-shell-skip: 30;
 }
 
 @media (prefers-reduced-motion: reduce) {

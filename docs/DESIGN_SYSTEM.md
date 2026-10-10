@@ -2,7 +2,7 @@
 
 ## Scope and design goals
 
-**Sprint 1.1 complete and approved:** shared light-mode tokens and global foundations. **Sprint 1.2 implemented:** 13 reusable core primitives and a combined `/` review surface. This remains the visual source of truth; no dashboard shell, role dashboards, charts or business data are implemented here.
+**Sprint 1 complete and approved:** shared light-mode tokens, core primitives and data/navigation primitives. The combined `/` review surface remains the visual source of truth. **Sprint 2.1 implemented, awaiting review:** a shared dashboard shell on the three role routes. Real role dashboard content, charts and business integration remain unimplemented.
 
 The interface should be trustworthy, professional and operational: calm surfaces, clear hierarchy and scannable information. Navy establishes Apply Varsity identity, blue identifies interactions, and brand red remains restrained. Reuse the same foundations across roles without giving every role the same page priorities. See [UX Principles](UX_DESIGN_PRINCIPLES.md) and [Role Experiences](ROLE_EXPERIENCES.md).
 
@@ -339,3 +339,55 @@ Positioning is local absolute CSS with `align="start" | "end"` and `placement="t
 Chromium browser checks passed at **360, 375, 390, 430, 480, 768, 1024, 1280, 1440, 1920, 2560 and 3840px**: no page overflow; contained comparison-table scrolling; readable mobile lists; fitting pagination, breadcrumb, navigation, dropdown and tooltip specimens; focus outlines and mobile action sizing. Mobile, desktop and 4K captures were visually reviewed. Keyboard checks covered scroll-region exit, table/list actions, pagination boundaries/current state, tab wrapping/Home/End/disabled skipping/panel traversal, disclosure Tab/Escape/outside dismissal/focus restoration and tooltip focus/hover/Escape relationships. All four routes loaded without console or page errors; role placeholders were preserved.
 
 This is focused browser/semantic QA, not a screen-reader audit or Lighthouse certification. No test dependencies or fixtures were added to the project. New listeners are interaction-scoped; ordinary layout remains CSS-driven. The sprint adds no Recharts imports, remote assets, datasets beyond six records, new tokens or dependencies. See the sprint report for final production bundle sizes and deltas.
+
+## Sprint 2.1 — Shared dashboard shell
+
+`DashboardLayout` accepts `role`, optional `user` and `navigation`, `title`, optional `description`, `breadcrumbs`, `actions` and `children`. It resolves role defaults and passes presentation inputs to `DashboardShell`. There is one implementation across Admin, Counsellor and Student. Workspace content remains a semantic `main` inside the shell rather than an unnecessary standalone wrapper component. PageHeader owns an h1, optional description, Breadcrumbs and wrapping actions. The root Foundation Preview is unchanged.
+
+Sidebar, Topbar, MobileNavigation and PageHeader reuse NavItem, NavGroup, IconButton, Badge, Avatar and Breadcrumbs. ShellPreview reuses Card for explicitly neutral layout specimens. Existing primitive APIs and visual tokens are preserved; no replacement button/avatar/navigation styles were introduced.
+
+### Responsive geometry and tokens
+
+| Token | Value | Purpose |
+| --- | --- | --- |
+| `--shell-sidebar-expanded` | 16.5rem / 264px | Comfortable long navigation labels |
+| `--shell-sidebar-collapsed` | 5rem / 80px | Named icon navigation |
+| `--shell-drawer-width` | min(86vw, 20rem) | Compact drawer, visible dismissible backdrop |
+| `--shell-topbar-height` | 4.5rem / 72px minimum | Stable brand/topbar alignment |
+| `--shell-gutter` | clamp(1rem, 2vw, 3rem) | Fluid 16–48px gutters |
+| `--layer-shell-chrome` | 20 | Sticky sidebar and topbar |
+| `--layer-shell-skip` | 30 | Visible skip link above chrome |
+
+Shell-specific rules live in `shell.css`, imported by the existing global entry. The single shell transition is **64rem / 1024px** (Tailwind `lg`): persistent sidebar at/above it, drawer navigation below. Smaller internal identity text adaptations do not change this layout model. The workspace has no max-width. Only individual reading surfaces are constrained: preview introduction at 56rem, paragraphs at readable measure. Auto-fit neutral specimens use available space without scaling type or controls.
+
+At 1920px the expanded workspace is 1656px with four specimen columns; at 2560px it is 2296px with five; at 3840px it is 3576px with six occupied columns. Collapse adds 184px of workspace. These are viewport QA measurements, not claims about physical monitor sizes. Main content scrolls with the document; the topbar stays sticky. Min-width-zero grid children prevent content-driven page overflow.
+
+### Sidebar and navigation
+
+The full-height sticky sidebar separates a stable brand header, one internally scrollable navigation region and a stable footer. Long Admin navigation does not increase document height. The footer includes a working Foundation link, a preview/unavailable explanation and the desktop collapse control. The minimal AV monogram/text brand uses existing navy tokens and no external asset.
+
+Collapse is local React state without persistence. Icon labels become visually hidden while accessible names, active border/color and `aria-current="page"` remain. Static group separators preserve structure. Native `title` text supplements collapsed labels on hover; no positioned tooltip is placed inside the clipping scroll region. Names do not depend on hover. The collapse/expand control retains focus, changes its accessible label and exposes expanded state. Mobile opening is separate state and never renders a desktop collapse control.
+
+Admin uses all six supplied groups and their existing module vocabulary. Counsellor uses Main/My workspace; Student uses Main/My journey. Group/item config supports icons, route `to` or anchor `href`, optional badge and disabled state. Future items deliberately have no route and use the existing unavailable NavItem presentation. Dashboard uses React Router Link with exact pathname matching. This is navigation presentation, not authorization.
+
+### Modal mobile navigation and cleanup
+
+MobileNavigation mounts only while open and calls native `dialog.showModal()`. This puts navigation in the browser top layer and makes the background inert, following the [W3C native-dialog technique](https://www.w3.org/WAI/WCAG22/Techniques/html/H102). A named dialog contains the same Sidebar composition; its overlay uses the approved overlay token. The native top layer is above shell chrome without inflated z-index values; the panel sits on the overlay, with normal content below chrome. Existing dropdown/tooltip local layering remains unchanged.
+
+Opening focuses the close control. Native modal semantics block background interaction, and a small local Tab/Shift+Tab boundary handler keeps traversal cycling between visible drawer controls. Escape, close button, backdrop click or a working navigation link dismisses the drawer. Disabled entries cannot navigate. Closing restores the menu trigger where still mounted/visible; crossing to desktop restores the collapse control instead. Navigating away does not focus a disconnected trigger.
+
+Body overflow is saved before locking and restored on close/unmount, including StrictMode effect cleanup. One `matchMedia('(min-width: 64rem)')` change listener exists **only while the modal is open**, solely to close it when crossing to desktop and release inertness/scroll lock. It is not a resize listener, viewport state or JS layout calculation. It is removed on close/unmount. There are no permanent window/document interaction listeners or decorative scroll listeners.
+
+The implementation targets current browsers with native modal-dialog support. Chromium behavior was tested; this is not formal screen-reader/WCAG certification or a cross-browser/mobile-device certification. Drawer opening/collapse are immediate; no motion or animation engine was introduced. Existing control transitions continue to honor reduced-motion tokens.
+
+### Topbar and page composition
+
+The sticky topbar shows role context, unavailable search/notification affordances and a fictional profile. At mobile sizes identity reduces to a named avatar and compact role context beside a 44px menu control; desktop exposes profile name/role. Long names truncate visually while the avatar accessible name and title retain the full identity. Profile presentation is not a fake interactive account menu.
+
+Search and notification buttons remain keyboard discoverable with explicit unavailable accessible labels/descriptions and `aria-disabled`; they perform no action. The `99+` badge is a labeled fictional specimen, not a live count. Interactive shell controls use at least 44px targets. PageHeader breadcrumbs sit below the topbar; actions wrap independently of a long h1/description. A visible-on-focus skip link moves focus to the main workspace.
+
+### Sprint 2.1 QA record
+
+All three role routes passed actual Chromium checks at **360, 375, 390, 430, 480, 768, 1024, 1280, 1440, 1920, 2560 and 3840px**. Checks covered overflow, sidebar/internal scroll, expanded/collapsed widths, topbar/profile fit, page header/breadcrumbs, gutters, workspace grid use, named controls, focus indicators, drawer fit, background exclusion, body lock and dismissal/focus restoration. Root Foundation content remains intact. Visual captures were reviewed at mobile, expanded/collapsed desktop and 4K.
+
+Additional temporary browser fixtures exercised long profile names, page titles, navigation labels, breadcrumbs, wrapping page actions and long document scrolling. Close/unmount restore prior overflow and remove modal breakpoint listeners. A breakpoint transition while open closes safely. Reduced-motion settings and skip-link behavior were checked. No test dependencies/fixtures were added to the repository. Lint/build/whitespace checks and bundle measurements are recorded in the sprint report.
