@@ -2,7 +2,7 @@
 
 ## Status and interpretation
 
-This is a **Target UI** information architecture baseline, not an immutable backend schema or evidence of completed modules. Known capabilities are supplied product context from [Product Context](PRODUCT_CONTEXT.md). Sprint 2.1 implements the shared shell on the three existing role routes; module routes and real dashboard content remain unimplemented.
+This is a **Target UI** information architecture baseline, not an immutable backend schema or evidence of completed modules. Known capabilities are supplied product context from [Product Context](PRODUCT_CONTEXT.md). Sprint 2.1 implements the shared shell; Sprint 2.2 adds the Admin operational overview with synthetic data. Real module routes and integration remain unimplemented.
 
 ## Domain map
 
@@ -102,3 +102,9 @@ Introduce `config/`, `services/` or `features/` only when demonstrated complexit
 `src/config/dashboardNavigation.js` owns lightweight groups/items, named icon references, destinations, optional badges and disabled states. Admin preserves the supplied existing navigation vocabulary (including Client, Task, Team, Scholarships and Agreements). Counsellor uses documented daily-work concepts; Student uses journey concepts. Future items have no destinations and render unavailable; only Dashboard and the separate Foundation link navigate. This neither deletes legacy capabilities nor invents permissions or dozens of module routes.
 
 `src/data/shellUsers.js` contains three fictional identities. Future integration can supply user/navigation inputs explicitly; no account fetching or authorization is implied by a role prop. `src/styles/shell.css` holds shell-specific geometry while sizing/layer values live in the existing token source. See [Design System](DESIGN_SYSTEM.md#sprint-21--shared-dashboard-shell) for responsive and accessibility behavior.
+
+## Admin overview data boundary — Sprint 2.2
+
+One workspace engine supports role-specific experiences. AdminPage now composes focused components in `src/components/dashboard/admin/` using `src/data/adminDashboardData.js`, while retaining DashboardLayout. Counsellor and Student retain their existing ShellPreview content. No second shell, role provider or authorization mechanism was added.
+
+The Admin overview consumes read-only summaries of Leads, Students, Applications, Follow-ups, Branches, Acquisition and operational updates. It does not own those modules or their transitions. Future module integrations should replace the supplied data inputs, with permissions enforced outside this visual configuration. MetricCard is a generic presentational building block; pipeline mappings and operational definitions remain outside `components/ui`. DashboardSection shares only section/state composition. This boundary leaves later role experiences possible without duplicating the workspace engine.

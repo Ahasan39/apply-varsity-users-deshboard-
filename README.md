@@ -10,7 +10,7 @@ Establish a scalable engineering and visual foundation for future role-specific 
 
 ## Planned User Panels
 
-- **Admin** — first dashboard to be implemented in later sprints.
+- **Admin** — operational workspace overview implemented with synthetic data.
 - **Counsellor** — planned.
 - **Student** — planned.
 
@@ -29,7 +29,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. Visit `/` for the preserved Design Foundation preview. `/admin`, `/counsellor`, and `/student` use the same dashboard shell with their own navigation configuration and neutral layout specimens. Unknown routes show a minimal not-found page.
+Open the local URL printed by Vite. Visit `/` for the preserved Design Foundation preview and `/admin` for the operational workspace overview. `/counsellor` and `/student` retain neutral shell specimens. All three roles use the same shared shell. Unknown routes show a minimal not-found page.
 
 ## Available Commands
 
@@ -86,15 +86,19 @@ Empty future directories contain only `.gitkeep` files. Add shared components, l
 
 **Sprint 1.3:** Complete — Data Display & Navigation Primitives, reviewed and approved in baseline `32716ab`. Sprint 1 is complete.
 
-**Sprint 2.1:** Shared Dashboard Shell Foundation implemented; awaiting review.
+**Sprint 2.1:** Complete — Shared Dashboard Shell Foundation, reviewed and approved in baseline `faed755`.
 
-**Next:** Sprint 2.2 — Admin Dashboard Overview. Sprint 2.2 has not started.
+**Sprint 2.2:** Admin Operational Workspace Overview implemented; awaiting review.
+
+**Next:** Sprint 2.3 — Admin CRM & Lead Experience. Sprint 2.3 has not started.
 
 **Current implementation:** Engineering foundation, light-mode design tokens, 13 core primitives, 11 data-display/navigation primitive families and a combined visual/interactive preview on `/`. Section 07 demonstrates semantic tables, mobile list alternatives and local navigation/action specimens using six explicitly fictional records.
 
 The role routes now share a fluid application shell: a 264px desktop sidebar (80px collapsed), sticky topbar and a modal navigation drawer below 1024px. Collapse state is local and not persisted. Dashboard links and the Foundation link work; future modules are disabled. Search/notification controls are explicitly unavailable specimens, and profiles/counts are fictional.
 
-Real Admin, Counsellor and Student dashboard content has NOT started. No API integration, authentication, business features, CRM integration, charts or dark mode exists. Navigation configuration is presentation, not authorization. See the [Design System](docs/DESIGN_SYSTEM.md#sprint-21--shared-dashboard-shell) for shell composition and validation scope.
+The Admin workspace now presents business/exception metrics, Needs Attention, follow-ups, pipeline, student/application stages, branch performance, recent records, acquisition, deadlines, tasks and notifications. All values are fictional and frozen at **11 Oct 2026, 09:00 Bangladesh time (UTC+6)**. A compact SVG trend and CSS acquisition bars have visible text equivalents; Recharts remains unused.
+
+No API integration, authentication, permission enforcement, real filtering, CRM modules, communications or dark mode exists. Counsellor/Student operational content has not started. Navigation configuration is presentation, not authorization. See [Admin requirements](docs/ADMIN_DASHBOARD_REQUIREMENTS.md#implemented-overview--sprint-22) for data definitions and [Design System](docs/DESIGN_SYSTEM.md#sprint-22--admin-operational-workspace) for composition and QA scope.
 
 ## Development Roadmap
 

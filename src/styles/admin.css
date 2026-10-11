@@ -1,0 +1,71 @@
+@layer components {
+  .admin-workspace {
+    display: grid;
+    min-width: 0;
+    align-items: start;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "ops" "attention" "followups" "pipeline" "business" "snapshot" "leads" "applications" "deadlines" "tasks" "branches" "trend" "sources" "notifications";
+  }
+  .admin-panel { container-type: inline-size; scroll-margin-top: calc(var(--shell-topbar-height) + 1rem); }
+  .admin-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .admin-operational-metrics { grid-area: ops; }
+  .admin-business-metrics { grid-area: business; }
+  .admin-attention { grid-area: attention; }
+  .admin-followups { grid-area: followups; }
+  .admin-pipeline { grid-area: pipeline; }
+  .admin-snapshot { grid-area: snapshot; }
+  .admin-leads { grid-area: leads; }
+  .admin-applications { grid-area: applications; }
+  .admin-branches { grid-area: branches; }
+  .admin-trend { grid-area: trend; }
+  .admin-sources { grid-area: sources; }
+  .admin-deadlines { grid-area: deadlines; }
+  .admin-tasks { grid-area: tasks; }
+  .admin-notifications { grid-area: notifications; }
+  .admin-record-table { display: none; }
+  .admin-pipeline-stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .admin-notification-list { display: grid; gap: 0 1.5rem; }
+  .admin-snapshot-values { display: grid; gap: 0.75rem; }
+  .admin-acquisition-body { display: grid; gap: 1.25rem; }
+  @container (min-width: 30rem) {
+    .admin-pipeline-stages { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .admin-notification-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .admin-snapshot-values { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .admin-snapshot-values > div { flex-direction: column; align-items: start; justify-content: space-between; }
+  }
+  @container (min-width: 42rem) {
+    .admin-record-table { display: block; }
+    .admin-record-list { display: none; }
+    .admin-acquisition-body { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @container (min-width: 60rem) {
+    .admin-pipeline-stages { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .admin-notification-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  @media (min-width: 48rem) {
+    .admin-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .admin-workspace {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas: "ops ops" "attention followups" "pipeline pipeline" "business business" "snapshot snapshot" "leads leads" "applications applications" "branches branches" "deadlines tasks" "trend sources" "notifications notifications";
+    }
+  }
+  @media (min-width: 80rem) {
+    .admin-workspace {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-areas: "business business business" "ops ops ops" "pipeline pipeline attention" "snapshot snapshot attention" "trend trend followups" "sources sources followups" "branches branches branches" "leads leads leads" "applications applications applications" "deadlines tasks notifications";
+    }
+  }
+  @media (min-width: 112rem) {
+    .admin-workspace {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-areas: "business business ops ops" "pipeline pipeline attention followups" "trend sources snapshot followups" "leads leads applications applications" "branches branches deadlines tasks" "notifications notifications notifications notifications";
+    }
+  }
+  @media (min-width: 200rem) {
+    .admin-workspace {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-areas: "business business business ops ops ops" "pipeline pipeline pipeline attention attention followups" "trend trend sources snapshot snapshot followups" "leads leads applications applications branches branches" "deadlines deadlines tasks tasks notifications notifications";
+    }
+  }
+}

@@ -20,9 +20,11 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Sprint 2 — Shared Dashboard Shell
 
-**Sprint 2.1 — Shared Dashboard Shell Foundation:** implemented; awaiting review. All three role routes reuse one shell with a collapsible desktop sidebar, modal mobile/tablet navigation, sticky topbar, fluid workspace and page header. Neutral specimens demonstrate layout only; real dashboard modules remain unimplemented.
+**Sprint 2.1 — Shared Dashboard Shell Foundation:** complete and approved in baseline `faed755`. All three role routes reuse one shell with a collapsible desktop sidebar, modal mobile/tablet navigation, sticky topbar, fluid workspace and page header.
 
-**Next: Sprint 2.2 — Admin Dashboard Overview** (not started). This detailed next checkpoint takes precedence over the earlier broad Sprint 3 overview milestone below; that broader scope will be reconciled with the next explicit sprint request.
+**Sprint 2.2 — Admin Operational Workspace Overview:** implemented; awaiting review. Includes synthetic operational/business metrics, attention/follow-ups, lead pipeline, student/application context, branch and acquisition performance, recent records, deadlines, tasks and notifications. Responsive data alternatives and loading/empty capability are included. No real CRM modules or integrations exist.
+
+**Next: Sprint 2.3 — Admin CRM & Lead Experience** (not started). This detailed sequence takes precedence over the older broad Sprint 3–6 milestones below; later scope is determined by explicit sprint requests rather than automatic implementation.
 
 - **Objective:** provide reusable navigation and page composition for later dashboards.
 - **Major deliverables:** DashboardLayout, sidebar/mobile drawer, topbar and page container; planned Admin navigation mapped without claiming unfinished modules work.
@@ -108,4 +110,4 @@ This roadmap defines sequential prototype checkpoints, not permission to begin f
 
 ## Current stop boundary
 
-Sprint 2.1 ends after shell reuse across all roles, responsive/mobile-through-4K checks, keyboard and drawer lifecycle verification, performance review, documentation and required validation. **Next: Sprint 2.2 — Admin Dashboard Overview**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 2.2 under this task. Approved baseline `32716ab` is preserved; Sprint 2.1 changes remain uncommitted for review.
+Sprint 2.2 ends after the Admin operational overview, synthetic data reconciliation, mobile/tablet-through-4K and accessibility checks, performance review, documentation and required validation. **Next: Sprint 2.3 — Admin CRM & Lead Experience**, only when requested. Follow [Codex Working Rules](CODEX_WORKING_RULES.md); do not commit, push or begin Sprint 2.3 under this task. Approved baseline `faed755` is preserved; Sprint 2.2 changes remain uncommitted for review.

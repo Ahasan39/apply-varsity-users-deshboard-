@@ -2,7 +2,7 @@
 
 ## Scope and design goals
 
-**Sprint 1 complete and approved:** shared light-mode tokens, core primitives and data/navigation primitives. The combined `/` review surface remains the visual source of truth. **Sprint 2.1 implemented, awaiting review:** a shared dashboard shell on the three role routes. Real role dashboard content, charts and business integration remain unimplemented.
+**Sprints 1 and 2.1 complete and approved:** shared tokens/primitives, the `/` review surface and the reusable role shell. **Sprint 2.2 implemented, awaiting review:** an Admin operational workspace with synthetic data and compact SVG/CSS analytics. Real module integration and Counsellor/Student operational content remain unimplemented.
 
 The interface should be trustworthy, professional and operational: calm surfaces, clear hierarchy and scannable information. Navy establishes Apply Varsity identity, blue identifies interactions, and brand red remains restrained. Reuse the same foundations across roles without giving every role the same page priorities. See [UX Principles](UX_DESIGN_PRINCIPLES.md) and [Role Experiences](ROLE_EXPERIENCES.md).
 
@@ -391,3 +391,45 @@ Search and notification buttons remain keyboard discoverable with explicit unava
 All three role routes passed actual Chromium checks at **360, 375, 390, 430, 480, 768, 1024, 1280, 1440, 1920, 2560 and 3840px**. Checks covered overflow, sidebar/internal scroll, expanded/collapsed widths, topbar/profile fit, page header/breadcrumbs, gutters, workspace grid use, named controls, focus indicators, drawer fit, background exclusion, body lock and dismissal/focus restoration. Root Foundation content remains intact. Visual captures were reviewed at mobile, expanded/collapsed desktop and 4K.
 
 Additional temporary browser fixtures exercised long profile names, page titles, navigation labels, breadcrumbs, wrapping page actions and long document scrolling. Close/unmount restore prior overflow and remove modal breakpoint listeners. A breakpoint transition while open closes safely. Reduced-motion settings and skip-link behavior were checked. No test dependencies/fixtures were added to the repository. Lint/build/whitespace checks and bundle measurements are recorded in the sprint report.
+
+## Sprint 2.2 — Admin operational workspace
+
+The Admin content layer consumes the existing shell without changing its breakpoint, navigation, topbar, tokens or primitive APIs. `admin.css` defines scoped content-grid/container rules; ordinary styles continue to use approved semantic utilities. No new design token is needed. There is no viewport React state, effect, observer, chart dependency or animation loop in this layer.
+
+### Cards and attention hierarchy
+
+MetricCard composes Card with a label, formatted value, optional detail/icon and semantic tone. Business metrics use restrained informational color; exceptions use warning/danger borders and foregrounds plus explicit labels. Icons come from a small, explicitly imported set. There are no sparklines, decorative colors or fake comparisons. Metric cards are not click targets.
+
+DashboardSection composes Card, SectionHeader and common loading/empty content. Each section has a meaningful accessible name; nested record headings do not break h1/h2/h3 hierarchy. Section focus targets support native in-page links with sticky-topbar scroll clearance. The data layer supplies operational labels and counts rather than modifying generic UI primitives.
+
+### Grid and responsive order
+
+The page remains fluid. Named CSS grid areas express these layout modes:
+
+- **Below 768px:** two-column compact metric groups within a single content column. Exceptions → Needs Attention → follow-ups → pipeline → business/student context → recent records → deadlines/tasks → performance → notifications. DOM order follows this operational priority; desktop repositioning does not introduce a conflicting interactive tab sequence.
+- **768–1279px:** two content columns for attention/follow-ups and secondary panels; metric groups use four columns. Pipeline, snapshot and comparison tables span the workspace. At 1024px the approved persistent sidebar appears; the remaining content still supports these modes without changing the shell breakpoint.
+- **1280–1791px:** three content columns. Business and exception groups precede a two-column primary region and a right-side attention/follow-up rail. The trend receives the wider main region; source/website content can split internally.
+- **1792–3199px:** four content columns, business/exception metrics share a row, recent tables sit side by side, and performance/attention regions distribute across the workspace.
+- **3200px+:** six content columns, with bounded multi-column chart, record and operational sections. The workspace is never forced into a narrow centered container.
+
+Panels align to their content height rather than stretching into tall empty surfaces. The trend figure is locally capped at 56rem; measured SVG widths range from 262px at 360px to 872px at 4K. Typography/control sizes do not scale with the monitor. Local constraints and additional columns protect reading/scanning quality.
+
+### Pipeline and tables/lists
+
+Pipeline uses a CSS segmented bar and a readable stage list with count and percentage. Seven primary stage groups expand from two to four to seven columns based on panel width. Agreement pending/completed are grouped with visible subcounts; terminal/review states remain explicit. Navy/blue categorical fills are not a red-to-green progress score. The neutral remainder corresponds to the separate terminal/review counts.
+
+Recent Leads, Recent Applications and Branch Performance deliberately render Table and CompactList alternatives. A **42rem panel-content container query**, rather than a global viewport test, exposes exactly one representation. Comparison tables retain captions, scoped row/column headings, numeric alignment and named keyboard-scrollable containment when needed. Mobile lists show ownership, context, status and dates without squeezed columns. Only 4–5 records are duplicated in the DOM; CSS-hidden alternatives are removed from the accessibility tree. This remains suitable when panels grow after sidebar collapse.
+
+### Analytics and text equivalents
+
+The seven-day trend uses two SVG polylines, restrained primary/navy tokens and solid/dashed distinction. Grid lines have no data semantics. The SVG is decorative to assistive technology: nearby legend/totals and a visible, individually named daily-value list provide the complete numbers without hover. Daily counts are not a conversion-rate calculation. Sources use CSS bars beside explicit counts/percentages; website metrics are a compact definition list, not five extra KPI cards.
+
+Recharts remains unimported. These tiny static series need neither a chart engine nor resize observers: CSS sizes the fixed-coordinate SVG and preserves readable HTML labels. Zero/single-day data was tested. No remote assets, chart animation, tooltips hiding essential values or speculative lazy-loading infrastructure were added.
+
+### State and verification scope
+
+Twelve data regions accept `loading` and empty inputs. Loading displays a named status, `aria-busy` and existing Skeletons; empty input displays existing EmptyState. Heading/context remains stable. Consumers provide real loading state later; there are no fake requests or timers. Metric cards are static aggregate fixtures in this sprint.
+
+Actual Chromium QA passed **360, 375, 390, 430, 480, 768, 1024, 1280, 1440, 1920, 2560 and 3840px** for Admin, with smoke checks of the other three routes. Verified page/panel overflow, KPI fit, mobile ordering, exclusive table/list visibility, semantic tables, visible chart values, bounded chart widths, keyboard table exit and in-page navigation, shell drawer/collapse and mobile targets. Twenty-four loading/empty cases, long mobile records, zero data and reduced-motion skeletons passed. No application console/page errors were observed in final checks.
+
+The supplied reference path was unavailable in this Windows workspace. Visual review therefore uses the sprint's written density/hierarchy/attention-rail criteria, not an asserted pixel comparison. Project documentation and approved tokens remain authoritative. No formal screen-reader, Lighthouse or cross-browser certification is claimed.
